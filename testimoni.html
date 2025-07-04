@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimoni | DCY PICTURE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #38bdf8;
+      margin-bottom: 2rem;
+    }
+    .testimonial {
+      background-color: #1e293b;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .testimonial p {
+      font-style: italic;
+    }
+    .testimonial span {
+      display: block;
+      margin-top: 0.5rem;
+      color: #facc15;
+      font-weight: bold;
+    }
+    .testimonial .stars {
+      color: gold;
+      font-size: 1.2rem;
+      margin-top: 0.25rem;
+    }
+    .testimonial img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .back-link a {
+      background-color: #38bdf8;
+      color: #0f172a;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Testimoni Klien</h1>
+
+  <h2 style="text-align:center; color:#facc15; margin-top:3rem;">Kirim Testimoni Anda</h2>
+  <form id="testimonialForm" style="max-width:500px; margin:2rem auto; display:flex; flex-direction:column; gap:1rem;">
+    <input type="text" id="name" placeholder="Nama Anda" required style="padding:0.75rem; border-radius:8px; border:none;">
+    <textarea id="message" placeholder="Tulis testimoni..." required style="padding:0.75rem; border-radius:8px; border:none;"></textarea>
+    <label for="rating">Rating:</label>
+    <select id="rating" style="padding:0.5rem; border-radius:6px;">
+      <option value="⭐">⭐</option>
+      <option value="⭐⭐">⭐⭐</option>
+      <option value="⭐⭐⭐">⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+      <option value="⭐⭐⭐⭐⭐" selected>⭐⭐⭐⭐⭐</option>
+    </select>
+    <button type="submit" style="background:#38bdf8; color:#0f172a; padding:0.75rem; border:none; border-radius:8px; font-weight:bold;">Kirim</button>
+  </form>
+
+  <div id="newTestimonials"></div>
+
+  <div class="back-link">
+    <a href="index.html">⬅ Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    document.querySelectorAll('a').forEach(link => {
+      if (link.getAttribute('href') === 'testimoni.html') {
+        link.setAttribute('target', '_blank');
+      } else {
+        link.removeAttribute('target');
+      }
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    document.querySelectorAll('a').forEach(link => {
+      if (link.getAttribute('href') === 'testimoni.html') {
+        link.setAttribute('target', '_blank');
+      } else {
+        link.removeAttribute('target');
+      }
+    });
+  </script>
+  <script>
+  document.getElementById('testimonialForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const rating = document.getElementById('rating').value;
+
+    if (!name || !message) {
+      alert('Nama dan testimoni tidak boleh kosong.');
+      return;
+    }
+
+    const newDiv = document.createElement('div');
+    newDiv.className = 'testimonial';
+    newDiv.setAttribute('data-aos', 'fade-up');
+    newDiv.innerHTML = `
+      <p>"${message}"</p>
+      <span>- ${name}</span>
+      <div class="stars">${rating}</div>
+    `;
+
+    document.getElementById('newTestimonials').prepend(newDiv);
+    AOS.refresh();
+    document.getElementById('testimonialForm').reset();
+  });
+</script>
+</body>
+</html>

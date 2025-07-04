@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 400px;
+      box-sizing: border-box;
+      animation: fadeIn 1s ease-in-out;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      text-align: center;
+      color: #111827;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #f59e0b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    .error {
+      color: #ef4444;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .forgot-password {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+    .forgot-password a {
+      color: #3b82f6;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div style="text-align:center; margin-bottom:20px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TVU.png" alt="Logo" style="max-width:100px; animation: fadeInDown 1s ease-in-out;">
+    </div>
+    <p style="text-align:center; margin-bottom:16px; font-size:14px; color:#374151; animation: fadeIn 1.2s ease-in-out;">
+      Selamat datang kembali, Admin! Silakan login untuk melanjutkan.
+    </p>
+    <h2>Login Admin</h2>
+    <form onsubmit="handleLogin(event)">
+      <input type="text" id="email" placeholder="Email Admin" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <div class="error" id="errorMsg">Email atau password salah!</div>
+      <button type="submit">Masuk</button>
+    </form>
+    <div class="forgot-password">
+      <a onclick="forgotPassword()">Lupa password?</a>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      const adminEmail = "admin@example.com";
+      const adminPassword = "admin123";
+
+      if (email === adminEmail && password === adminPassword) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = 'profil.html';
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+  </script>
+  <div id="forgotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); display:flex; justify-content:center; align-items:center; z-index:999;">
+    <div style="background:white; padding:20px; border-radius:10px; width:90%; max-width:300px; text-align:center; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+      <h3>Reset Password</h3>
+      <p style="font-size:14px;">Masukkan email admin Anda dan kami akan kirim link reset password.</p>
+      <input type="text" id="resetEmail" placeholder="Email admin" style="width:100%; padding:8px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc;">
+      <button onclick="sendResetEmail()" style="width:100%; padding:10px; background:#3b82f6; color:white; border:none; border-radius:6px;">Kirim Link Reset</button>
+      <button onclick="closeForgotModal()" style="width:100%; margin-top:10px; padding:8px; background:#e5e7eb; color:#111827; border:none; border-radius:6px;">Batal</button>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      const adminEmail = "admin@example.com";
+      const adminPassword = "admin123";
+
+      if (email === adminEmail && password === adminPassword) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = 'profil.html';
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    function forgotPassword() {
+      document.getElementById("forgotModal").style.display = "flex";
+    }
+
+    function closeForgotModal() {
+      document.getElementById("forgotModal").style.display = "none";
+    }
+
+    function sendResetEmail() {
+      const email = document.getElementById("resetEmail").value;
+      if (!email) return alert("Silakan masukkan email terlebih dahulu.");
+      fetch('reset-password.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'email=' + encodeURIComponent(email)
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+        closeForgotModal();
+      })
+      .catch(() => {
+        alert('Terjadi kesalahan saat mengirim permintaan reset.');
+      });
+    }
+  </script>
+</body>
+</html>

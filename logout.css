@@ -1,0 +1,14 @@
+ .back-to-home {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .back-to-home:hover {
+    background-color: #222;
+  }

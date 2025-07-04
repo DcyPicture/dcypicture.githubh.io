@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perbarui Nomor Telepon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="relative min-h-screen flex items-center justify-center py-10 bg-blue-50">
+
+  <!-- Latar belakang profil & akun -->
+  <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-30 blur-sm" style="background-image: url('https://source.unsplash.com/featured/?profile,technology');"></div>
+
+  <div class="bg-white/70 backdrop-blur-md shadow-xl rounded-xl w-full max-w-md p-6 space-y-6">
+    <div class="text-center">
+      <h1 class="text-2xl font-bold text-blue-900">Perbarui Nomor Telepon</h1>
+      <p class="text-sm text-blue-700">Masukkan nomor telepon baru Anda untuk diperbarui.</p>
+    </div>
+
+    <form onsubmit="perbaruiNomor(event)" class="space-y-4">
+      <div>
+        <label for="nomorBaru" class="block text-sm font-medium text-gray-700">Nomor Telepon Baru</label>
+        <input id="nomorBaru" name="nomorBaru" type="tel" placeholder="Contoh: 08123456789" required
+               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+      </div>
+      <div class="flex justify-end">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded">
+          Simpan
+        </button>
+      </div>
+      <p id="berhasilTersimpan" class="text-green-600 text-sm hidden">Nomor berhasil diperbarui!</p>
+    </form>
+
+    <div class="text-center">
+      <a href="#" onclick="window.history.back()" class="text-blue-600 text-sm hover:underline">← Kembali ke Profil</a>
+    </div>
+  </div>
+
+  <script>
+    function perbaruiNomor(event) {
+      event.preventDefault();
+      const notif = document.getElementById('berhasilTersimpan');
+      notif.classList.remove('hidden');
+      setTimeout(() => notif.classList.add('hidden'), 3000);
+    }
+  </script>
+
+</body>
+</html>

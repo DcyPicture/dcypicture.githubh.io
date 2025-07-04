@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paket & Harga Photography</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+    }
+
+    .paket-container {
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .paket-container h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .slider-wrapper {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slider {
+      display: flex;
+      flex-wrap: nowrap;
+      transition: transform 0.5s ease;
+      gap: 20px;
+    }
+
+    .paket-card {
+      min-width: 300px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .paket-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .paket-card p {
+      font-size: 16px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .harga {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 15px 0;
+      color: #d35400;
+    }
+
+    .btn {
+      background: #d35400;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #b84300;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #333;
+      background: #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      user-select: none;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .arrow:hover {
+      background: #eee;
+    }
+
+    .arrow.left {
+      left: -10px;
+    }
+
+    .arrow.right {
+      right: -10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .close-btn {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .paket-container h2 {
+        font-size: 24px;
+      }
+
+      .paket-card {
+        min-width: 80vw;
+        padding: 20px;
+      }
+
+      .paket-card h3 {
+        font-size: 20px;
+      }
+
+      .paket-card p {
+        font-size: 14px;
+      }
+
+      .harga {
+        font-size: 18px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+
+      .arrow {
+        display: none;
+      }
+
+      .modal-content {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+
+      .arrow {
+        display: none;
+      }
+  </style>
+</head>
+<body>
+
+  <section class="paket-container" id="paket-harga">
+    <h2>Paket & Harga Photography</h2>
+
+    <div class="slider-wrapper">
+      <div class="arrow left" onclick="slideLeft()">❮</div>
+      <div class="arrow right" onclick="slideRight()">❯</div>
+
+      <div class="slider" id="slider">
+        <div class="paket-card">
+          <h3>Paket Dokumentasi</h3>
+          <p>6 Jam Liputan Acara</p>
+          <p>Video + 40 Foto Editan</p>
+          <p>Drive Link + Album Digital</p>
+          <div class="harga">Rp 1.500.000</div>
+          <button class="btn" onclick="showModal('Dokumentasi')">Lihat Detail</button>
+        </div>
+
+        <div class="paket-card">
+          <h3>Paket Outdoor</h3>
+          <p>3 Jam Sesi Outdoor</p>
+          <p>25 Foto Editan</p>
+          <p>File Digital + Cetak 10 Foto</p>
+          <div class="harga">Rp 850.000</div>
+          <button class="btn" onclick="showModal('Outdoor')">Lihat Detail</button>
+        </div>
+        <div class="paket-card">
+          <h3>Paket Basic</h3>
+          <p>2 Jam Sesi Pemotretan</p>
+          <p>15 Foto Editan</p>
+          <p>File Digital</p>
+          <div class="harga">Rp 500.000</div>
+          <button class="btn" onclick="showModal('Basic')">Lihat Detail</button>
+        </div>
+
+        <div class="paket-card">
+          <h3>Paket Standard</h3>
+          <p>4 Jam Sesi Pemotretan</p>
+          <p>30 Foto Editan</p>
+          <p>Album Cetak + File Digital</p>
+          <div class="harga">Rp 1.000.000</div>
+          <button class="btn" onclick="showModal('Standard')">Lihat Detail</button>
+        </div>
+
+        <div class="paket-card">
+          <h3>Paket Premium</h3>
+          <p>Seharian Full Session</p>
+          <p>50+ Foto Editan</p>
+          <p>Album Premium + Frame + File Digital</p>
+          <div class="harga">Rp 2.000.000</div>
+          <button class="btn" onclick="showModal('Premium')">Lihat Detail</button>
+        </div>
+      </div>
+    </div>
+  
+
+  
+    <a href="pembayaran.html" class="btn">Lanjut ke Pembayaran</a>
+    <a href="index.html" class="btn">Kembali Ke Beranda</a>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+
+    function slideLeft() {
+      slider.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+
+    function slideRight() {
+      slider.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+
+    function showModal(paket) {
+      let title = '', desc = '';
+
+      if (paket === 'Basic') {
+        title = 'Detail Paket Basic';
+        desc = 'Paket cocok untuk pemotretan singkat. Sudah termasuk sesi 2 jam, 15 foto editan profesional, dan file digital siap unduh.';
+      } else if (paket === 'Standard') {
+        title = 'Detail Paket Standard';
+        desc = 'Paket sedang dengan sesi 4 jam, 30 foto editan, album cetak eksklusif, dan file digital untuk kenangan lebih lengkap.';
+      } else if (paket === 'Premium') {
+        title = 'Detail Paket Premium';
+        desc = 'Paket paling lengkap: pemotretan seharian penuh, 50+ foto editan, album premium, bingkai foto, dan file digital berkualitas tinggi.';
+      } else if (paket === 'Dokumentasi') {
+        title = 'Detail Paket Dokumentasi';
+        desc = 'Paket untuk dokumentasi event. Termasuk 6 jam liputan, video dokumentasi, 40 foto editan, dan album digital.';
+      } else if (paket === 'Outdoor') {
+        title = 'Detail Paket Outdoor';
+        desc = 'Sesi foto outdoor selama 3 jam, 25 foto editan, hasil digital, dan cetak 10 foto pilihan.';
+      }
+
+      modalTitle.innerText = title;
+      modalDesc.innerText = desc;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+
+</body>
+</html>
